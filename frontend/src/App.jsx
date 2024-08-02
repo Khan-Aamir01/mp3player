@@ -1,12 +1,14 @@
-
-import './App.css'
+import React from 'react';
+import Sidebar from './components/sidebar';
+import MainContent from './components/mainContent';
 
 function App() {
   return (
-    <>
-      <h1 className='text-9xl'>Hello World</h1>
-    </>
-  )
+    <div className="flex h-screen">
+      <Sidebar className="bg-gray-800 text-white basis-4" /> 
+      <MainContent className="flex-1 bg-gray-100 p-4" />
+    </div>
+  );
 }
 
-export default App
+export default App;
