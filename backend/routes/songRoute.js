@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {getAllSong,getSongbyId,createSong,updateSong,deleteSong} = require('../controllers/songController');
+const { getAllSong, getSongById, createSong, updateSong, deleteSong } = require('../controllers/songController');
 
 router.get('/',getAllSong);
 
-router.get('/:id',getSongbyId);
+router.get('/:id',getSongById);
 
 router.post('/',createSong);
 

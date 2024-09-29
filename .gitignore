@@ -76,3 +76,6 @@ npm-debug.log*
 
 # TernJS port file
 .tern-port
+
+# Contains Image and MP3 Files
+public

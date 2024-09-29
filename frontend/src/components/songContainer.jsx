@@ -1,16 +1,13 @@
 import React from 'react';
 import SongCard from './songCard'; // Import SongCard component
+import { Link } from 'react-router-dom';
 
-function SongContainer() {
-    const songs = [
-        { id: 1, title: 'Song 1', artist: 'Artist 1', cover: 'image1.jpg' },
-        { id: 2, title: 'Song 2', artist: 'Artist 2', cover: 'image2.jpg' },
-        { id: 3, title: 'Song 3', artist: 'Artist 3', cover: 'image3.jpg' },
-        { id: 4, title: 'Song 4', artist: 'Artist 4', cover: 'image4.jpg' },
-        { id: 5, title: 'Song 5', artist: 'Artist 5', cover: 'image5.jpg' },
-        { id: 6, title: 'Song 6', artist: 'Artist 6', cover: 'image6.jpg' },
-        // Add more songs here
-    ];
+
+function SongContainer({songs}) {
+    
+    songs.forEach(element => {
+        console.log(element.name);
+    });
 
     return (
         <div className="p-4 m-5">
@@ -20,11 +17,13 @@ function SongContainer() {
                     Show All
                 </button>
             </div>
+            <Link to='/song/:id'>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 ">
-                {songs.map((song) => (
-                    <SongCard key={song.id} song={song} />
-                ))}
-            </div>
+                
+                {songs.map((songs) => (
+                    <SongCard key={songs.id} song={songs} />
+                ))} 
+            </div> </Link>
         </div>
     );
 }

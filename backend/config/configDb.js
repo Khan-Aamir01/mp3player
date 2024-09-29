@@ -6,7 +6,6 @@ const sequelize = new Sequelize({
     username: process.env.DB_USERNAME,
     password : process.env.DB_PASSWORD,
     database: 'MP3_Player',
-    logging: console.log,
 });
 
 
