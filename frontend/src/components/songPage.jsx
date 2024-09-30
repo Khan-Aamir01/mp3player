@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Sidebar from './sidebar';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Sidebar from "./sidebar";
 
 function SongPage() {
   const { id } = useParams(); // Get the song ID from the URL
@@ -13,13 +13,14 @@ function SongPage() {
       try {
         const response = await fetch(`http://localhost:3000/api/song/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch song details');
+          throw new Error("Failed to fetch song details");
         }
         const data = await response.json();
+        console.log(data);
         setSong(data); // Set the song details in state
         setLoading(false); // Turn off loading state
       } catch (error) {
-        console.error('Error fetching song details:', error);
+        console.error("Error fetching song details:", error);
         setLoading(false);
       }
     };
@@ -46,7 +47,7 @@ function SongPage() {
           {/* Title and Album */}
           <div className="mb-6">
             <h1 className="text-4xl font-bold text-gray-950">{song.name}</h1>
-            <p className="text-lg text-gray-400">{song.artist.name}</p>
+            <p className="text-lg text-gray-400">Aamir</p>
           </div>
 
           {/* Song Cover and Player */}
@@ -56,15 +57,18 @@ function SongPage() {
               <img
                 src={song.coverURL} // Dynamically set cover URL
                 alt={song.name}
-                className="w-full h-auto rounded-lg"
+                className="w-48 h-auto rounded-lg"
               />
             </div>
 
             {/* Right side - Song Title and Player */}
             <div className="w-1/2">
-              <h2 className="text-2xl text-white mb-4">Now Playing: {song.name}</h2>
+              <h2 className="text-2xl text-white mb-4">
+                Now Playing: {song.name}
+              </h2>
               <audio controls className="w-full">
-                <source src={song.songUrl} type="audio/mpeg" /> {/* Dynamically set song URL */}
+                <source src={song.songUrl} type="audio/mpeg" />
+                {/* Dynamically set song URL */}
                 Your browser does not support the audio element.
               </audio>
             </div>
