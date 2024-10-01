@@ -1,9 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { HomeContext } from "../Context/HomeContext";
 import { useContext } from "react";
 
 const Home = () => {
   const { newSong, error, loading, recommendedMusic } = useContext(HomeContext);
+
+  const navigate = useNavigate();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -25,18 +27,22 @@ const Home = () => {
             <h2 className="text-2xl font-semibold text-yellow-100">
               Fresh New Tracks
             </h2>
-            <button className="bg-yellow-100 font-semibold px-4 py-2 rounded-md hover:bg-yellow-300 transition">
+            <button
+              onClick={() => navigate("/song")}
+              className="bg-yellow-100 font-semibold px-4 py-2 rounded-md hover:bg-yellow-300 transition"
+            >
               See All New Music
             </button>
           </div>
           <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
             {newSong.map((music) => (
               <div
+                onClick={() => navigate(`/song/${music.id}/${music.name}`)}
                 key={music.id}
                 className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md cursor-pointer"
               >
                 <img
-                  src={music.image}
+                  src={music.coverURL}
                   alt={music.name}
                   className="w-32 h-36 object-cover rounded-md mb-2"
                 />
@@ -56,11 +62,12 @@ const Home = () => {
           <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
             {recommendedMusic.map((music) => (
               <div
+                onClick={() => navigate(`/song/${music.id}/${music.name}`)}
                 key={music.id}
                 className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md cursor-pointer"
               >
                 <img
-                  src={music.image}
+                  src={music.coverURL}
                   alt={music.name}
                   className="w-32 h-36 object-cover rounded-md mb-2"
                 />

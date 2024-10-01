@@ -8,6 +8,9 @@ const HomeContext = createContext();
 const HomeProvider = ({ children }) => {
   const [newSong, setNewSong] = useState([]);
   const [recommendedMusic, setRecommendedMusic] = useState([]);
+
+  const [allSong, setAllSong] = useState(null);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,13 +40,34 @@ const HomeProvider = ({ children }) => {
     }
   };
 
+  const getAllMusic = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_URL}/song`);
+      setAllSong(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.response?.data || "Failed to load song details");
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getNewSong();
     getRecommendedMusic();
+    getAllMusic();
   }, []);
 
   return (
-    <HomeContext.Provider value={{ newSong, recommendedMusic, error, loading }}>
+    <HomeContext.Provider
+      value={{
+        newSong,
+        recommendedMusic,
+        error,
+        loading,
+        allSong,
+      }}
+    >
       {children}
     </HomeContext.Provider>
   );
