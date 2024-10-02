@@ -1,3 +1,5 @@
+const { Sequelize } = require('sequelize');
+
 const Song = require('../models/song');
 const Artist = require('../models/artist');
 const Album = require('../models/album');
@@ -10,6 +12,36 @@ const getAllSong = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 }
+
+// getNew Song
+const getNewSong = async (req, res) => {
+    try {
+        // Fetch the top 6 songs ordered by their creation date (newest first)
+        const newSongs = await Song.findAll({
+            order: [['createdAt', 'DESC']],  // Sort by the 'createdAt' field in descending order
+            limit: 6  // Limit the result to 6 songs
+        });
+
+        res.status(200).json(newSongs);  // Return the top 6 new songs
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// getgetRecommendedSong Song
+const getRecommendedSong = async (req, res) => {
+    try {
+        // Fetch the randome 3 songs
+        const recommendedSong = await Song.findAll({
+            limit: 3,
+            order: Sequelize.literal('RANDOM()')  // Randomize the selection
+        });
+
+        res.status(200).json(recommendedSong);  // Return the top 6 new songs
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 
 const getSongById = async (req, res) => {
     try {
@@ -110,4 +142,4 @@ const deleteSong = async (req, res) => {
     }
 }
 
-module.exports = { getAllSong, getSongById, createSong, updateSong, deleteSong };
+module.exports = { getAllSong, getNewSong, getRecommendedSong, getSongById, createSong, updateSong, deleteSong };

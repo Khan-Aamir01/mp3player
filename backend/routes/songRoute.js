@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllSong, getSongById, createSong, updateSong, deleteSong } = require('../controllers/songController');
+const { getAllSong, getNewSong, getRecommendedSong, getSongById, createSong, updateSong, deleteSong } = require('../controllers/songController');
 
 router.get('/',getAllSong);
+
+router.get('/new', getNewSong);
+
+router.get('/recommended', getRecommendedSong)
 
 router.get('/:id',getSongById);
 
